@@ -38,7 +38,7 @@ function renderNoticeText(text: string, logos: string[]) {
   if (!text) return null;
   const icons = logos.filter(Boolean);
   const iconEl = (svg: string, key: string) => svg && svg.trim().startsWith('<svg')
-    ? <span key={key} className="inline-block w-5 h-5 align-[-3px] mx-1 overflow-hidden rounded-full" dangerouslySetInnerHTML={{ __html: svg }} />
+    ? <span key={key} className="inline-block w-5 h-5 align-[-3px] mx-1 overflow-hidden rounded-full [&>svg]:w-full [&>svg]:h-full [&>svg]:block" dangerouslySetInnerHTML={{ __html: svg }} />
     : null;
   const out: any[] = [];
   // 先按 [logo]/[logo2]/[logo3] 切分
