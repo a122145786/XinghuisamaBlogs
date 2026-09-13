@@ -19,7 +19,7 @@ export const siteConfig = {
   homeNoticeLogo: "",
   homeNoticeLogo2: "",
   homeNoticeLogo3: "",
-  homeNotice: "github：https://g.a1221.cc   云盘：https://yun.139.com\n飞牛：https://fn.a1221.cc",
+  homeNotice: "",
 
   // 2. 头像设置 (支持网络链接，或将图片放入 public 文件夹后使用 "/me.jpg")
   avatarUrl: "https://cdn.a1221.cc/1/%E5%83%8F%E7%B4%A0%E5%A5%B3%E5%AD%A9_%E5%8E%BB%E7%AD%BE%E5%90%8D.png",

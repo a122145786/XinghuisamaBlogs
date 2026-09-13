@@ -3,9 +3,9 @@
 export const siteConfig = {
   // 1. 网站标题与博主信息
   title: "Vissの 宝藏之地",
-  faviconUrl: "https://cdn.a1221.cc/1/%5E%F0%9D%90%8E%F0%9D%90%AE%F0%9D%90%AB%20%F0%9D%90%AC%F0%9D%90%AD%F0%9D%90%A8%F0%9D%90%AB%F0%9D%90%B2%C2%B7%E5%83%8F%E7%B4%A0%E6%83%85%E5%A4%B4%E5%88%86%E4%BA%AB_1_%E4%B8%9C%E4%BA%AC%E4%B8%8B%E5%B0%8F%E9%9B%A8_%E6%9D%A5%E8%87%AA%E5%B0%8F%E7%BA%A2%E4%B9%A6%E7%BD%91%E9%A1%B5%E7%89%88.jpg",
+  faviconUrl: "https://cdn.a1221.cc/1/%E5%83%8F%E7%B4%A0%E5%A5%B3%E5%AD%A9_%E5%8E%BB%E7%AD%BE%E5%90%8D.png",
   authorName: "bibi",
-  bio: "",
+  bio: "Vissの宝藏之地",
 
   navTitle: "viss",
 
@@ -19,10 +19,10 @@ export const siteConfig = {
   homeNoticeLogo: "",
   homeNoticeLogo2: "",
   homeNoticeLogo3: "",
-  homeNotice: "github：https://g.a1221.cc   云盘：https://yun.139.com\n飞牛：https://fn.a1221.cc",
+  homeNotice: "",
 
   // 2. 头像设置 (支持网络链接，或将图片放入 public 文件夹后使用 "/me.jpg")
-  avatarUrl: "https://cdn.a1221.cc/1/%5E%F0%9D%90%8E%F0%9D%90%AE%F0%9D%90%AB%20%F0%9D%90%AC%F0%9D%90%AD%F0%9D%90%A8%F0%9D%90%AB%F0%9D%90%B2%C2%B7%E5%83%8F%E7%B4%A0%E6%83%85%E5%A4%B4%E5%88%86%E4%BA%AB_1_%E4%B8%9C%E4%BA%AC%E4%B8%8B%E5%B0%8F%E9%9B%A8_%E6%9D%A5%E8%87%AA%E5%B0%8F%E7%BA%A2%E4%B9%A6%E7%BD%91%E9%A1%B5%E7%89%88.jpg",
+  avatarUrl: "https://cdn.a1221.cc/1/%E5%83%8F%E7%B4%A0%E5%A5%B3%E5%AD%A9_%E5%8E%BB%E7%AD%BE%E5%90%8D.png",
 
   // 3. 网站背景设置 (二选一)
   // 如果想用纯图片背景，请在下面 bgImage 写路径，并将 useGradient 设为 false
