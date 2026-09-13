@@ -34,21 +34,28 @@ function formatUpdateTime(dateString: string) {
   } catch { return dateString; }
 }
 
-function renderNoticeText(text: string, logoSvg?: string) {
+function renderNoticeText(text: string, logos: string[]) {
   if (!text) return null;
-  const logo = (key: string) => logoSvg && logoSvg.trim().startsWith('<svg')
-    ? <span key={key} className="inline-block w-5 h-5 align-[-3px] mx-1 overflow-hidden rounded-full" dangerouslySetInnerHTML={{ __html: logoSvg }} />
+  const icons = logos.filter(Boolean);
+  const iconEl = (svg: string, key: string) => svg && svg.trim().startsWith('<svg')
+    ? <span key={key} className="inline-block w-5 h-5 align-[-3px] mx-1 overflow-hidden rounded-full" dangerouslySetInnerHTML={{ __html: svg }} />
     : null;
-  const byLogo = text.split(/\[logo\]/g);
   const out: any[] = [];
-  byLogo.forEach((chunk, ci) => {
-    if (ci > 0) out.push(logo('lg' + ci));
+  // 先按 [logo]/[logo2]/[logo3] 切分
+  const byIcon = text.split(/\[logo(\d)?\]/g);
+  // split 带捕获组：偶数位是文本，奇数位是编号（''/2/3）
+  byIcon.forEach((chunk, idx) => {
+    if (idx % 2 === 1) {
+      const n = chunk === '' ? 0 : parseInt(chunk) - 1;
+      if (icons[n]) out.push(iconEl(icons[n], 'ic' + idx));
+      return;
+    }
     const parts = chunk.split(/(https?:\/\/[^\s]+)/g);
     parts.forEach((part, i) => {
       if (/^https?:\/\//.test(part)) {
-        out.push(<a key={ci + '-' + i} href={part} target="_blank" rel="noopener noreferrer" className="hover:text-indigo-500 dark:hover:text-indigo-400 hover:underline underline-offset-2 break-all transition-colors">{part}</a>);
+        out.push(<a key={idx + '-' + i} href={part} target="_blank" rel="noopener noreferrer" className="hover:text-indigo-500 dark:hover:text-indigo-400 hover:underline underline-offset-2 break-all transition-colors">{part}</a>);
       } else if (part) {
-        out.push(<span key={ci + '-' + i}>{part}</span>);
+        out.push(<span key={idx + '-' + i}>{part}</span>);
       }
     });
   });
@@ -135,7 +142,7 @@ export default function Home() {
               {/* 心语横幅 */}
               {siteConfig.homeNotice && (
                 <div className="w-full rounded-3xl bg-white/40 dark:bg-slate-800/50 backdrop-blur-md border border-white/40 dark:border-white/10 px-6 py-5 shadow-xl relative overflow-y-auto max-h-[300px] flex items-center gap-4" style={{"scrollbarWidth":"thin"}}>
-                  <p className="flex-1 text-left text-slate-700 dark:text-slate-200 font-bold text-lg tracking-widest select-text cursor-text whitespace-pre-wrap leading-relaxed" style={{ color: siteConfig.homeNoticeColor || undefined }}>{renderNoticeText(siteConfig.homeNotice, siteConfig.homeNoticeLogo)}</p>
+                  <p className="flex-1 text-left text-slate-700 dark:text-slate-200 font-bold text-lg tracking-widest select-text cursor-text whitespace-pre-wrap leading-relaxed" style={{ color: siteConfig.homeNoticeColor || undefined }}>{renderNoticeText(siteConfig.homeNotice, [siteConfig.homeNoticeLogo, siteConfig.homeNoticeLogo2, siteConfig.homeNoticeLogo3])}</p>
                 </div>
               )}
 
