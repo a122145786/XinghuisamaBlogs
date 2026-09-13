@@ -7,8 +7,12 @@ cover: https://bu.dusays.com/2026/03/24/69c23dc278c78.jpg
 description: ''
 ---
 
-**github：**[**https://g.a1221.cc**](https://g.a1221.cc)
+**github：**[GitHub](https://g.a1221.cc/)
 
-**云盘：https://yun.139.com**
+**云盘：**[移动云盘](https://yun.139.com/w/#/index)
 
-**飞牛：**[**https://fn.a1221.cc**](https://fn.a1221.cc)
+**飞牛：**[飞牛 fnOS](https://fn.a1221.cc/)
+
+**战绩：**[GitHub - LeagueAkari/LeagueAkari: An all-in-one toolkit for LeagueClient. Gathering power 🚀. · GitHub](https://g.a1221.cc/LeagueAkari/LeagueAkari)
+
+**雷蛇：**[Razer Synapse 雷云 4：先进的设备控制和灯光软件 | Razer 雷蛇中文官网](https://cn.razerzone.com/synapse-4)

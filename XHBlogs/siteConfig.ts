@@ -5,7 +5,7 @@ export const siteConfig = {
   title: "Vissの 宝藏之地",
   faviconUrl: "https://cdn.a1221.cc/1/%E5%83%8F%E7%B4%A0%E5%A5%B3%E5%AD%A9_%E5%8E%BB%E7%AD%BE%E5%90%8D.png",
   authorName: "bibi",
-  bio: "",
+  bio: "Vissの宝藏之地",
 
   navTitle: "viss",
 
