@@ -61,6 +61,18 @@ export default function AboutClient({
     }
   }, [activeTab]);
 
+  // 正文所有外链在新标签页打开
+  useEffect(() => {
+    const links = document.querySelectorAll('.prose a[href^="http"]');
+    links.forEach(a => {
+      const el = a as HTMLAnchorElement;
+      if (!el.hasAttribute('target')) {
+        el.setAttribute('target', '_blank');
+        el.setAttribute('rel', 'noopener noreferrer');
+      }
+    });
+  }, [activeTab, contentHtml]);
+
   const formatDateTime = (dateStr: string) => {
     const d = new Date(dateStr);
     if (isNaN(d.getTime())) return dateStr;
