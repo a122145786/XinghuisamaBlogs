@@ -124,8 +124,15 @@ export default function Home() {
 
               {/* 心语横幅 */}
               {siteConfig.homeNotice && (
-                <div className="w-full rounded-3xl bg-white/40 dark:bg-slate-800/50 backdrop-blur-md border border-white/40 dark:border-white/10 px-6 py-5 shadow-xl relative overflow-y-auto max-h-[300px]" style={{"scrollbarWidth":"thin"}}>
-                  <p className="text-left text-slate-700 dark:text-slate-200 font-bold text-lg tracking-widest select-text cursor-text whitespace-pre-wrap leading-relaxed">{renderNoticeText(siteConfig.homeNotice)}</p>
+                <div className="w-full rounded-3xl bg-white/40 dark:bg-slate-800/50 backdrop-blur-md border border-white/40 dark:border-white/10 px-6 py-5 shadow-xl relative overflow-y-auto max-h-[300px] flex items-center gap-4" style={{"scrollbarWidth":"thin"}}>
+                  {siteConfig.homeNoticeLogo && (
+                    siteConfig.homeNoticeLogo.trim().startsWith('<svg') ? (
+                      <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-white/60 dark:border-slate-600 shadow-md shrink-0 bg-white/40 dark:bg-slate-700/40 flex items-center justify-center [&>svg]:w-9 [&>svg]:h-9" dangerouslySetInnerHTML={{ __html: siteConfig.homeNoticeLogo }} />
+                    ) : (
+                      <img src={siteConfig.homeNoticeLogo} alt="logo" className="w-12 h-12 rounded-full object-cover border-2 border-white/60 dark:border-slate-600 shadow-md shrink-0" />
+                    )
+                  )}
+                  <p className="flex-1 text-left text-slate-700 dark:text-slate-200 font-bold text-lg tracking-widest select-text cursor-text whitespace-pre-wrap leading-relaxed" style={{ color: siteConfig.homeNoticeColor || undefined }}>{renderNoticeText(siteConfig.homeNotice)}</p>
                 </div>
               )}
 

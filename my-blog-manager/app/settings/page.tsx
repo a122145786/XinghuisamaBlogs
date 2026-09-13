@@ -41,6 +41,8 @@ function SettingsContent() {
       admin: []
     },
     newMusicId: '',
+    homeNoticeColor: siteConfig.homeNoticeColor || '',
+    homeNoticeLogo: siteConfig.homeNoticeLogo || '',
     homeNotice: siteConfig.homeNotice || '',
     danmakuList: [...(siteConfig.danmakuList || [])],
     buildDate: siteConfig.buildDate || "2026-03-23T00:00:00",

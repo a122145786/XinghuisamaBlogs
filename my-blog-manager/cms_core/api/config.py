@@ -129,6 +129,7 @@ def update_site_config(payload: Dict[str, Any] = Body(...)):
         "navAfter",
         "friendLinkApplyFormat",
         "homeNotice",
+        "homeNoticeColor",
         "enableLevelSystem" # 👈 你加的字段在这里，完美！
     }
 
