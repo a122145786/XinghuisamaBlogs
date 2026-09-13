@@ -57,7 +57,7 @@ export const siteConfig = {
     owner: "",
     admin: [""],
   },
-  buildDate: "2026-03-23T00:00:00", // 建站日期
+  buildDate: "2026-09-13T10:00:00", // 建站日期
   footerBadges: [],
   icpConfig: {
     name: "萌ICP备 20260240号",
