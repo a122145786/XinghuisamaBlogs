@@ -87,6 +87,7 @@ export default async function AboutPage() {
       .process(content);
 
     contentHtml = processedContent.toString();
+    contentHtml = contentHtml.replace(/<a(?![^>]*target=)([^>]*)>/g, '<a$1 target="_blank" rel="noopener noreferrer">');
   } catch (e) {
     console.error("读取 about.md 失败", e);
   }
