@@ -15,7 +15,7 @@ export const siteConfig = {
   navAfter: "宝藏之地",
 
   // 👇 【首页心语】后台这里输入的文字，会显示在前台首页横幅上
-  homeNotice: "github: https://g.a1221.cc",
+  homeNotice: "github：https://g.a1221.cc  飞牛：https://fn.a1221.cc",
 
   // 2. 头像设置 (支持网络链接，或将图片放入 public 文件夹后使用 "/me.jpg")
   avatarUrl: "https://s41.ax1x.com/2026/09/13/pnmS63t.png",
