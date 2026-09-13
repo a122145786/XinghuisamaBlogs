@@ -34,15 +34,25 @@ function formatUpdateTime(dateString: string) {
   } catch { return dateString; }
 }
 
-function renderNoticeText(text: string) {
+function renderNoticeText(text: string, logoSvg?: string) {
   if (!text) return null;
-  const parts = text.split(/(https?:\/\/[^\s]+)/g);
-  return parts.map((part, i) => {
-    if (/^https?:\/\//.test(part)) {
-      return <a key={i} href={part} target="_blank" rel="noopener noreferrer" className="hover:text-indigo-500 dark:hover:text-indigo-400 hover:underline underline-offset-2 break-all transition-colors">{part}</a>;
-    }
-    return <span key={i}>{part}</span>;
+  const logo = (key: string) => logoSvg && logoSvg.trim().startsWith('<svg')
+    ? <span key={key} className="inline-block w-5 h-5 align-[-3px] mx-1 overflow-hidden rounded-full" dangerouslySetInnerHTML={{ __html: logoSvg }} />
+    : null;
+  const byLogo = text.split(/\[logo\]/g);
+  const out: any[] = [];
+  byLogo.forEach((chunk, ci) => {
+    if (ci > 0) out.push(logo('lg' + ci));
+    const parts = chunk.split(/(https?:\/\/[^\s]+)/g);
+    parts.forEach((part, i) => {
+      if (/^https?:\/\//.test(part)) {
+        out.push(<a key={ci + '-' + i} href={part} target="_blank" rel="noopener noreferrer" className="hover:text-indigo-500 dark:hover:text-indigo-400 hover:underline underline-offset-2 break-all transition-colors">{part}</a>);
+      } else if (part) {
+        out.push(<span key={ci + '-' + i}>{part}</span>);
+      }
+    });
   });
+  return out;
 }
 export default function Home() {
   const postsDirectory = path.join(process.cwd(), 'posts');
@@ -127,14 +137,7 @@ export default function Home() {
               {/* 心语横幅 */}
               {siteConfig.homeNotice && (
                 <div className="w-full rounded-3xl bg-white/40 dark:bg-slate-800/50 backdrop-blur-md border border-white/40 dark:border-white/10 px-6 py-5 shadow-xl relative overflow-y-auto max-h-[300px] flex items-center gap-4" style={{"scrollbarWidth":"thin"}}>
-                  {siteConfig.homeNoticeLogo && (
-                    siteConfig.homeNoticeLogo.trim().startsWith('<svg') ? (
-                      <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-white/60 dark:border-slate-600 shadow-md shrink-0 bg-white/40 dark:bg-slate-700/40 flex items-center justify-center [&>svg]:w-full [&>svg]:h-full [&>svg]:block" dangerouslySetInnerHTML={{ __html: siteConfig.homeNoticeLogo }} />
-                    ) : (
-                      <img src={siteConfig.homeNoticeLogo} alt="logo" className="w-12 h-12 rounded-full object-cover border-2 border-white/60 dark:border-slate-600 shadow-md shrink-0" />
-                    )
-                  )}
-                  <p className="flex-1 text-left text-slate-700 dark:text-slate-200 font-bold text-lg tracking-widest select-text cursor-text whitespace-pre-wrap leading-relaxed" style={{ color: siteConfig.homeNoticeColor || undefined }}>{renderNoticeText(siteConfig.homeNotice)}</p>
+                  <p className="flex-1 text-left text-slate-700 dark:text-slate-200 font-bold text-lg tracking-widest select-text cursor-text whitespace-pre-wrap leading-relaxed" style={{ color: siteConfig.homeNoticeColor || undefined }}>{renderNoticeText(siteConfig.homeNotice, siteConfig.homeNoticeLogo)}</p>
                 </div>
               )}
 
