@@ -129,7 +129,7 @@ export default function Home() {
                 <div className="w-full rounded-3xl bg-white/40 dark:bg-slate-800/50 backdrop-blur-md border border-white/40 dark:border-white/10 px-6 py-5 shadow-xl relative overflow-y-auto max-h-[300px] flex items-center gap-4" style={{"scrollbarWidth":"thin"}}>
                   {siteConfig.homeNoticeLogo && (
                     siteConfig.homeNoticeLogo.trim().startsWith('<svg') ? (
-                      <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-white/60 dark:border-slate-600 shadow-md shrink-0 bg-white/40 dark:bg-slate-700/40 flex items-center justify-center [&>svg]:w-9 [&>svg]:h-9" dangerouslySetInnerHTML={{ __html: siteConfig.homeNoticeLogo }} />
+                      <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-white/60 dark:border-slate-600 shadow-md shrink-0 bg-white/40 dark:bg-slate-700/40 flex items-center justify-center [&>svg]:w-full [&>svg]:h-full [&>svg]:block" dangerouslySetInnerHTML={{ __html: siteConfig.homeNoticeLogo }} />
                     ) : (
                       <img src={siteConfig.homeNoticeLogo} alt="logo" className="w-12 h-12 rounded-full object-cover border-2 border-white/60 dark:border-slate-600 shadow-md shrink-0" />
                     )
