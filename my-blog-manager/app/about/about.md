@@ -17,4 +17,5 @@ description: ''
 
 **雷蛇：**[Razer Synapse 雷云 4：先进的设备控制和灯光软件 | Razer 雷蛇中文官网](https://cn.razerzone.com/synapse-4)
 
-百度：https://www.baidu.com/
+嗯嗯：https://www.baidu.com/
+
