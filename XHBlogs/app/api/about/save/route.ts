@@ -23,6 +23,19 @@ export async function POST(req: NextRequest) {
     ? frontmatter.replace(/\n*$/, '') + '\n\n' + content.replace(/^\n+/, '') + '\n'
     : content + '\n';
 
+  // 探测：线上环境（Vercel serverless）文件系统只读，无法直接写文件
+  try {
+    const probe = path.join(process.cwd(), '.write-probe.tmp');
+    fs.writeFileSync(probe, 'ok');
+    fs.unlinkSync(probe);
+  } catch (e) {
+    return NextResponse.json({
+      success: false,
+      code: 'READONLY',
+      message: '线上环境无法直接保存。请打开本地网站（localhost:3000）编辑并保存，保存后会自动部署到线上。',
+    }, { status: 500 });
+  }
+
   try {
     // 1. 写入本地 about.md（XHBlogs）
     const aboutPath = path.join(process.cwd(), 'app', 'about', 'about.md');
