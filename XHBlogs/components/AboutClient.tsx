@@ -34,6 +34,7 @@ export default function AboutClient({
   const [canEdit, setCanEdit] = useState(false);
   const [editing, setEditing] = useState(false);
   const [editText, setEditText] = useState('');
+  const [editFm, setEditFm] = useState('');
   const [editMsg, setEditMsg] = useState<{ type: 'ok' | 'err'; text: string } | null>(null);
   const [editLoading, setEditLoading] = useState(false);
 
@@ -50,6 +51,7 @@ export default function AboutClient({
       const res = await fetch('/api/about/raw', { cache: 'no-store' });
       const data = await res.json();
       if (data.success) {
+        setEditFm(data.frontmatter || '');
         setEditText(data.content);
         setEditing(true);
       } else {
@@ -68,7 +70,7 @@ export default function AboutClient({
       const res = await fetch('/api/about/save', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ content: editText }),
+        body: JSON.stringify({ content: editText, frontmatter: editFm }),
       });
       const data = await res.json();
       if (data.success) {

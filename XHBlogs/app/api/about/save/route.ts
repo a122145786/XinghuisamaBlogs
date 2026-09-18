@@ -15,15 +15,22 @@ export async function POST(req: NextRequest) {
   }
 
   let content: string;
+  let frontmatter = '';
   try {
     const body = await req.json();
     content = body.content;
+    frontmatter = body.frontmatter || '';
   } catch (e) {
     return NextResponse.json({ success: false, message: '请求体解析失败' }, { status: 400 });
   }
   if (typeof content !== 'string' || !content.trim()) {
     return NextResponse.json({ success: false, message: '内容不能为空' }, { status: 400 });
   }
+
+  // 重新拼回完整文件（frontmatter + 正文）
+  const fullContent = frontmatter
+    ? frontmatter.replace(/\n*$/, '') + '\n\n' + content.replace(/^\n+/, '') + '\n'
+    : content + '\n';
 
   const api = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${FILE_PATH}`;
   const headers = {
@@ -49,7 +56,7 @@ export async function POST(req: NextRequest) {
       headers,
       body: JSON.stringify({
         message: 'feat: 网页端更新关于页',
-        content: Buffer.from(content, 'utf-8').toString('base64'),
+        content: Buffer.from(fullContent, 'utf-8').toString('base64'),
         sha,
       }),
     });
