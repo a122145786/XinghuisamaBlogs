@@ -236,7 +236,8 @@ export default function AboutClient({
                   .prose h1 { font-size: 1.8rem !important; font-weight: 900 !important; margin-bottom: 1.2rem !important; margin-top: 2rem !important; line-height: 1.3 !important; color: inherit !important; }
                   .prose h2 { font-size: 1.5rem !important; font-weight: 800 !important; margin-bottom: 1rem !important; margin-top: 1.5rem !important; color: inherit !important; }
                   .prose h3 { font-size: 1.2rem !important; font-weight: 700 !important; margin-bottom: 0.8rem !important; color: inherit !important; }
-                  .prose p { font-size: 0.95rem !important; line-height: 1.75 !important; color: inherit !important; }
+                  .prose p { font-size: 1.05rem !important; line-height: 1.9 !important; color: inherit !important; font-weight: 700 !important; letter-spacing: 0.1em !important; }
+                  .prose strong { font-weight: 900 !important; }
                   .prose ul, .prose ol { padding-left: 1.2rem !important; font-size: 0.95rem !important; }
 
                   .prose pre {
