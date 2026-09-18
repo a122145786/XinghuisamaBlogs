@@ -30,6 +30,59 @@ export default function AboutClient({
   const searchParams = useSearchParams();
   const activeTab = searchParams.get('tab') || 'intro';
 
+  // 🌟 网页端编辑：解锁状态下显示编辑按钮
+  const [canEdit, setCanEdit] = useState(false);
+  const [editing, setEditing] = useState(false);
+  const [editText, setEditText] = useState('');
+  const [editMsg, setEditMsg] = useState<{ type: 'ok' | 'err'; text: string } | null>(null);
+  const [editLoading, setEditLoading] = useState(false);
+
+  useEffect(() => {
+    try {
+      if (localStorage.getItem('xh_site_unlocked') === '1') setCanEdit(true);
+    } catch (e) {}
+  }, []);
+
+  const startEdit = async () => {
+    setEditMsg(null);
+    setEditLoading(true);
+    try {
+      const res = await fetch('/api/about/raw', { cache: 'no-store' });
+      const data = await res.json();
+      if (data.success) {
+        setEditText(data.content);
+        setEditing(true);
+      } else {
+        setEditMsg({ type: 'err', text: data.message || '读取失败' });
+      }
+    } catch (e) {
+      setEditMsg({ type: 'err', text: '网络错误，无法读取原文' });
+    }
+    setEditLoading(false);
+  };
+
+  const saveEdit = async () => {
+    setEditMsg(null);
+    setEditLoading(true);
+    try {
+      const res = await fetch('/api/about/save', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ content: editText }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setEditMsg({ type: 'ok', text: data.message });
+        setEditing(false);
+      } else {
+        setEditMsg({ type: 'err', text: data.message || '保存失败' });
+      }
+    } catch (e) {
+      setEditMsg({ type: 'err', text: '网络错误，保存失败' });
+    }
+    setEditLoading(false);
+  };
+
   const handleTabChange = (tab: string) => {
     router.push(`${pathname}?tab=${tab}`, { scroll: false });
   };
@@ -225,6 +278,55 @@ export default function AboutClient({
                   }
                 `}</style>
                 <div className="prose prose-slate dark:prose-invert prose-base md:prose-lg max-w-none text-slate-800 dark:text-slate-200 font-serif transition-colors duration-700 leading-relaxed scroll-smooth" dangerouslySetInnerHTML={{ __html: contentHtml }} />
+
+                {/* 🌟 网页端编辑入口（仅解锁状态显示） */}
+                {canEdit && !editing && (
+                  <div className="mt-6 flex items-center gap-3">
+                    <button
+                      onClick={startEdit}
+                      disabled={editLoading}
+                      className="px-5 py-2.5 bg-indigo-500/90 text-white rounded-2xl text-xs font-black shadow-lg hover:bg-indigo-600 transition-all active:scale-95 disabled:opacity-60"
+                    >
+                      {editLoading ? '读取中...' : '✏️ 编辑此页'}
+                    </button>
+                    {editMsg && (
+                      <span className={`text-xs font-bold ${editMsg.type === 'ok' ? 'text-green-600 dark:text-green-400' : 'text-pink-500'}`}>
+                        {editMsg.text}
+                      </span>
+                    )}
+                  </div>
+                )}
+
+                {canEdit && editing && (
+                  <div className="mt-6 rounded-3xl bg-white/60 dark:bg-slate-800/60 backdrop-blur-md border border-white/50 dark:border-white/10 p-5 shadow-xl">
+                    <div className="flex items-center justify-between mb-3">
+                      <h4 className="text-sm font-black text-slate-700 dark:text-slate-200">编辑自我介绍（Markdown 语法）</h4>
+                      <button onClick={() => { setEditing(false); setEditMsg(null); }} className="text-xs text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 font-bold">
+                        取消
+                      </button>
+                    </div>
+                    <textarea
+                      value={editText}
+                      onChange={e => setEditText(e.target.value)}
+                      rows={16}
+                      className="w-full bg-white/70 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700 rounded-2xl px-4 py-3 text-sm font-mono outline-none focus:ring-2 focus:ring-indigo-500 resize-y leading-relaxed"
+                    />
+                    <div className="flex items-center gap-3 mt-3">
+                      <button
+                        onClick={saveEdit}
+                        disabled={editLoading}
+                        className="px-6 py-2.5 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-2xl text-xs font-black shadow-xl hover:opacity-90 transition-all active:scale-95 disabled:opacity-60"
+                      >
+                        {editLoading ? '保存中...' : '保存并发布'}
+                      </button>
+                      {editMsg && (
+                        <span className={`text-xs font-bold ${editMsg.type === 'ok' ? 'text-green-600 dark:text-green-400' : 'text-pink-500'}`}>
+                          {editMsg.text}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                )}
               </div>
               <div className="mt-12 md:mt-16"><Comments /></div>
             </motion.div>
