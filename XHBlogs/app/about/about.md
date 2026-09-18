@@ -17,3 +17,4 @@ description: ''
 
 **é·èï¼**[Razer Synapse é·äº 4ï¼åè¿çè®¾å¤æ§å¶åç¯åè½¯ä»¶ | Razer é·èä¸­æå®ç½](https://cn.razerzone.com/synapse-4)
 
+1
