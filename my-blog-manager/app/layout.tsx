@@ -16,7 +16,6 @@ import { ToastProvider } from '../components/ToastProvider';
 import CyberCat from '../components/CyberCat';
 import DanmakuBackground from '../components/DanmakuBackground';
 import GlobalSnow from '../components/GlobalSnow';
-import AuthGate from '../components/AuthGate';
 
 // 🌟 1. 引入 Next.js 官方脚本组件
 import Script from 'next/script';
@@ -89,7 +88,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                   <GlobalSnow />
 
                   <div className="relative z-10 flex-1 flex flex-col">
-                    <AuthGate>{children}</AuthGate>
+                    {children}
                   </div>
 
                   <FloatingPlayer />

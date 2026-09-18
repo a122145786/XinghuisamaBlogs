@@ -15,6 +15,7 @@ import CyberCat from '../components/CyberCat';
 import DanmakuBackground from '../components/DanmakuBackground';
 
 import MobileBackButton from '../components/MobileBackButton';
+import SiteLock from '../components/SiteLock';
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
@@ -98,7 +99,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               </div>
 
               <div className="relative z-10 flex-1 flex flex-col">
-                {children}
+                <SiteLock>{children}</SiteLock>
               </div>
 
               <div className="hidden md:block">

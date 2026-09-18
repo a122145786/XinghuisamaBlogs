@@ -3,6 +3,9 @@
 export const siteConfig = {
   // 1. 网站标题与博主信息
   title: "Vissの 宝藏之地",
+
+  // 👇 【前台访问密码】非空即启用：打开网站需输入此密码才能进入（默认 123456）
+  sitePassword: "123456",
   faviconUrl: "https://cdn.a1221.cc/1/%E5%83%8F%E7%B4%A0%E5%A5%B3%E5%AD%A9_%E5%8E%BB%E7%AD%BE%E5%90%8D.png",
   authorName: "bibi",
   bio: "Vissの宝藏之地",
