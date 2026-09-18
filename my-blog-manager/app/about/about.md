@@ -1,5 +1,5 @@
 ---
-title: å³äºæ
+title: 关于我
 date: '2026-03-31 09:56:53'
 tags: []
 mood: ''
@@ -7,14 +7,12 @@ cover: https://bu.dusays.com/2026/03/24/69c23dc278c78.jpg
 description: ''
 ---
 
-**githubï¼**[GitHub](https://g.a1221.cc/)
+**github：**[GitHub](https://g.a1221.cc/)
 
-**äºçï¼**[ç§»å¨äºç](https://yun.139.com/w/#/index)
+**云盘：**[移动云盘](https://yun.139.com/w/#/index)
 
-**é£çï¼**[é£ç fnOS](https://fn.a1221.cc/)
+**飞牛：**[飞牛 fnOS](https://fn.a1221.cc/)
 
-**æç»©ï¼**[GitHub - LeagueAkari/LeagueAkari: An all-in-one toolkit for LeagueClient. Gathering power ð. Â· GitHub](https://g.a1221.cc/LeagueAkari/LeagueAkari)
+**战绩：**[GitHub - LeagueAkari/LeagueAkari: An all-in-one toolkit for LeagueClient. Gathering power 🚀. · GitHub](https://g.a1221.cc/LeagueAkari/LeagueAkari)
 
-**é·èï¼**[Razer Synapse é·äº 4ï¼åè¿çè®¾å¤æ§å¶åç¯åè½¯ä»¶ | Razer é·èä¸­æå®ç½](https://cn.razerzone.com/synapse-4)
-
-1
+**雷蛇：**[Razer Synapse 雷云 4：先进的设备控制和灯光软件 | Razer 雷蛇中文官网](https://cn.razerzone.com/synapse-4)
