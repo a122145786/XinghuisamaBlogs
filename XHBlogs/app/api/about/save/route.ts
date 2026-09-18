@@ -1,19 +1,10 @@
 // app/api/about/save/route.ts
+import fs from 'fs';
+import path from 'path';
+import { execSync } from 'child_process';
 import { NextRequest, NextResponse } from 'next/server';
 
-const OWNER = 'a122145786';
-const REPO = 'XinghuisamaBlogs';
-const FILE_PATH = 'XHBlogs/app/about/about.md';
-
 export async function POST(req: NextRequest) {
-  const token = process.env.GITHUB_TOKEN;
-  if (!token) {
-    return NextResponse.json(
-      { success: false, message: '未配置 GITHUB_TOKEN（请在 Vercel 环境变量中添加）' },
-      { status: 500 }
-    );
-  }
-
   let content: string;
   let frontmatter = '';
   try {
@@ -32,44 +23,45 @@ export async function POST(req: NextRequest) {
     ? frontmatter.replace(/\n*$/, '') + '\n\n' + content.replace(/^\n+/, '') + '\n'
     : content + '\n';
 
-  const api = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${FILE_PATH}`;
-  const headers = {
-    Authorization: `Bearer ${token}`,
-    'User-Agent': 'xinghui-blog-editor',
-    Accept: 'application/vnd.github+json',
-    'X-GitHub-Api-Version': '2022-11-28',
-  };
-
   try {
-    // 1. 获取当前文件 sha
-    const getRes = await fetch(api, { headers, cache: 'no-store' });
-    if (!getRes.ok) {
-      const txt = await getRes.text();
-      return NextResponse.json({ success: false, message: '读取仓库文件失败: ' + txt.slice(0, 200) }, { status: 500 });
-    }
-    const meta = await getRes.json();
-    const sha = meta.sha;
+    // 1. 写入本地 about.md（XHBlogs）
+    const aboutPath = path.join(process.cwd(), 'app', 'about', 'about.md');
+    fs.writeFileSync(aboutPath, fullContent, 'utf8');
 
-    // 2. 提交新内容
-    const putRes = await fetch(api, {
-      method: 'PUT',
-      headers,
-      body: JSON.stringify({
-        message: 'feat: 网页端更新关于页',
-        content: Buffer.from(fullContent, 'utf-8').toString('base64'),
-        sha,
-      }),
-    });
-    if (!putRes.ok) {
-      const txt = await putRes.text();
-      return NextResponse.json({ success: false, message: '提交失败: ' + txt.slice(0, 200) }, { status: 500 });
+    // 2. 同步写入后台控制台副本（保证两处一致）
+    const repoRoot = path.resolve(process.cwd(), '..');
+    const managerAbout = path.join(repoRoot, 'my-blog-manager', 'app', 'about', 'about.md');
+    try {
+      fs.mkdirSync(path.dirname(managerAbout), { recursive: true });
+      fs.writeFileSync(managerAbout, fullContent, 'utf8');
+    } catch (e) {
+      // 后台副本写入失败不阻断主流程
+    }
+
+    // 3. 自动 git 提交 + 推送（使用本机 SSH 配置，无需登录）
+    try {
+      execSync('git add -A && git commit -m "feat: 网页端更新关于页" || echo "no changes"', {
+        cwd: repoRoot,
+        stdio: 'pipe',
+        encoding: 'utf8',
+      });
+      execSync('git push origin main', {
+        cwd: repoRoot,
+        stdio: 'pipe',
+        encoding: 'utf8',
+      });
+    } catch (gitErr) {
+      return NextResponse.json({
+        success: false,
+        message: '文件已保存到本地，但自动推送失败：' + (gitErr as Error).message.slice(0, 200),
+      }, { status: 500 });
     }
 
     return NextResponse.json({
       success: true,
-      message: '已提交到 GitHub，网站将自动重新部署，约 1-2 分钟后生效',
+      message: '已保存并推送，网站约 1-2 分钟后自动更新',
     });
   } catch (e) {
-    return NextResponse.json({ success: false, message: '网络错误: ' + (e as Error).message }, { status: 500 });
+    return NextResponse.json({ success: false, message: '写入失败: ' + (e as Error).message }, { status: 500 });
   }
 }
