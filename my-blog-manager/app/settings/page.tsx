@@ -20,6 +20,7 @@ import FooterSection from '../../components/settings/FooterSection';
 // 👇 🌟 引入刚写的 AI 配置组件
 import AICatSection from '../../components/settings/AICatSection';
 import HomeNoticeSection from '../../components/settings/HomeNoticeSection';
+import PasswordSection from '../../components/settings/PasswordSection';
 
 function SettingsContent() {
   const { operations, addOperation } = useOperations();
@@ -46,6 +47,7 @@ function SettingsContent() {
     homeNoticeLogo2: siteConfig.homeNoticeLogo2 || '',
     homeNoticeLogo3: siteConfig.homeNoticeLogo3 || '',
     homeNotice: siteConfig.homeNotice || '',
+    sitePassword: siteConfig.sitePassword || '',
     danmakuList: [...(siteConfig.danmakuList || [])],
     buildDate: siteConfig.buildDate || "2026-03-23T00:00:00",
     icpConfig: siteConfig.icpConfig || { name: "", link: "" },
@@ -193,6 +195,7 @@ function SettingsContent() {
   // 👇 🌟 在菜单里增加 AI 猫咪入口
   const menuItems = [
     { id: 'notice', name: '首页心语', icon: '💬' },
+    { id: 'password', name: '站点密码', icon: '🔒' },
     { id: 'profile', name: '个人名片设置', icon: '👤' },
     { id: 'display', name: '视窗画面设置', icon: '🪟' },
     { id: 'background', name: '视觉背景配置', icon: '🌌' },
@@ -246,6 +249,7 @@ function SettingsContent() {
 
               {activeTab === 'repo' && <RepoSection key="repo" />}
               {activeTab === 'notice' && <HomeNoticeSection key="notice" formData={formData} handleUpdate={handleUpdate} pushToQueue={pushToQueue} />}
+              {activeTab === 'password' && <PasswordSection key="password" formData={formData} handleUpdate={handleUpdate} pushToQueue={pushToQueue} />}
             </AnimatePresence>
           </div>
 
