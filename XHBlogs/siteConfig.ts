@@ -6,7 +6,7 @@ export const siteConfig = {
 
   // 👇 【前台访问密码】非空即启用：打开网站需输入此密码才能进入（默认 123456）
   sitePassword: "",
-  faviconUrl: "https://cdn.a1221.cc/1/%E5%83%8F%E7%B4%A0%E5%A5%B3%E5%AD%A9_%E5%8E%BB%E7%AD%BE%E5%90%8D.png",
+  faviconUrl: "https://cc.a1221.cc/1/%E5%83%8F%E7%B4%A0%E5%A5%B3%E5%AD%A9_%E5%8E%BB%E7%AD%BE%E5%90%8D.png",
   authorName: "bibi",
   bio: "Vissの宝藏之地",
 
@@ -25,7 +25,7 @@ export const siteConfig = {
   homeNotice: "",
 
   // 2. 头像设置 (支持网络链接，或将图片放入 public 文件夹后使用 "/me.jpg")
-  avatarUrl: "https://cdn.a1221.cc/1/%E5%83%8F%E7%B4%A0%E5%A5%B3%E5%AD%A9_%E5%8E%BB%E7%AD%BE%E5%90%8D.png",
+  avatarUrl: "https://cc.a1221.cc/1/%E5%83%8F%E7%B4%A0%E5%A5%B3%E5%AD%A9_%E5%8E%BB%E7%AD%BE%E5%90%8D.png",
 
   // 3. 网站背景设置 (二选一)
   // 如果想用纯图片背景，请在下面 bgImage 写路径，并将 useGradient 设为 false
